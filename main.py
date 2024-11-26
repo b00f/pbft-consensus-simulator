@@ -35,7 +35,7 @@ def main():
     # #################
 
     print("===========")
-    print(f"Scenario B: {N} nodes are faulty...")
+    print(f"Scenario B: 3 nodes are faulty...")
 
     nodes = [PBFTNode(i, N, f, disable_logs) for i in range(N)]
     nodes[7] = FaultyNode()
@@ -52,7 +52,7 @@ def main():
     simulator.start()
 
     print("===========")
-    print(f"Scenario C: {N} nodes are faulty including the proposer...")
+    print(f"Scenario C: 3 nodes are faulty including the proposer...")
 
     nodes = [PBFTNode(i, N, f, disable_logs) for i in range(N)]
     nodes[0] = FaultyNode()
