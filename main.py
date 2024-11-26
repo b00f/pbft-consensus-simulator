@@ -15,14 +15,14 @@ def main():
     # We don't have any anti-entropy mechanism to replay lost messages.
     # A high threshold might cause consensus to halt.
     # Set it to -1 to disable this feature.
-    delivery_threshold = 0.05
+    delivery_threshold = 0.00
     # Make it True to enable logs.
     disable_logs = True
 
     #################
 
     print("===========")
-    print(f"Scenario A: 21 non faulty nodes with {delivery_threshold*100}% message loss...")
+    print(f"Scenario A: {N} non faulty nodes with {delivery_threshold*100}% message loss...")
 
     nodes = [PBFTNode(i, N, f, disable_logs) for i in range(N)]
     simulator = Simulator("PBFT", nodes, f, delivery_threshold)
@@ -35,7 +35,7 @@ def main():
     # #################
 
     print("===========")
-    print("Scenario B: 3 nodes are faulty...")
+    print(f"Scenario B: {N} nodes are faulty...")
 
     nodes = [PBFTNode(i, N, f, disable_logs) for i in range(N)]
     nodes[7] = FaultyNode()
@@ -52,7 +52,7 @@ def main():
     simulator.start()
 
     print("===========")
-    print("Scenario C: 3 nodes are faulty including the proposer...")
+    print(f"Scenario C: {N} nodes are faulty including the proposer...")
 
     nodes = [PBFTNode(i, N, f, disable_logs) for i in range(N)]
     nodes[0] = FaultyNode()
