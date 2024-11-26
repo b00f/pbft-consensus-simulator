@@ -6,7 +6,7 @@ It aims to provide simple implementations of both protocols to compare their net
 ## How to Run
 
 ```bash
-git clone https://github.com/yourusername/pbft-implementation.git
+git clone https://github.com/b00f/pbft-consensus-simulator.git
 cd pbft-implementation
 python3 main.py
 ```
