@@ -2,6 +2,7 @@ from src.simulator import Simulator
 from src.network import Network
 from src.pbft import PBFTNode
 from src.node import FaultyNode
+from src.cheetah import CheetahNode
 import time
 
 
@@ -21,12 +22,14 @@ def main():
     #################
 
     print("===========")
-    print(
-        f"Scenario A: 21 non faulty nodes with {delivery_threshold*100}% message loss..."
-    )
+    print(f"Scenario A: 21 non faulty nodes with {delivery_threshold*100}% message loss...")
 
     nodes = [PBFTNode(i, N, f, disable_logs) for i in range(N)]
     simulator = Simulator("PBFT", nodes, f, delivery_threshold)
+    simulator.start()
+
+    nodes = [CheetahNode(i, N, f, disable_logs) for i in range(N)]
+    simulator = Simulator("Cheetah", nodes, f, delivery_threshold)
     simulator.start()
 
     # #################
@@ -41,6 +44,13 @@ def main():
     simulator = Simulator("PBFT", nodes, f, delivery_threshold)
     simulator.start()
 
+    nodes = [CheetahNode(i, N, f, disable_logs) for i in range(N)]
+    nodes[7] = FaultyNode()
+    nodes[8] = FaultyNode()
+    nodes[9] = FaultyNode()
+    simulator = Simulator("Cheetah", nodes, f, delivery_threshold)
+    simulator.start()
+
     print("===========")
     print("Scenario C: 3 nodes are faulty including the proposer...")
 
@@ -49,6 +59,13 @@ def main():
     nodes[8] = FaultyNode()
     nodes[9] = FaultyNode()
     simulator = Simulator("PBFT", nodes, f, delivery_threshold)
+    simulator.start()
+
+    nodes = [CheetahNode(i, N, f, disable_logs) for i in range(N)]
+    nodes[0] = FaultyNode()
+    nodes[8] = FaultyNode()
+    nodes[9] = FaultyNode()
+    simulator = Simulator("Cheetah", nodes, f, delivery_threshold)
     simulator.start()
 
 
